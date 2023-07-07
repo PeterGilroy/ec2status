@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 [-u username] start/stop" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-u username] status/start/stop" 1>&2; exit 1; }
 
 while getopts "u:h:" o; do
     case "${o}" in
@@ -20,6 +20,11 @@ then
 fi
 
 case $1 in
+    status)
+      echo 'Retreiving list of EC2 instances for '$user'...'
+      aws ec2 describe-instances --filters Name=tag:user,Values="$user" --query "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,Instance:State.Name}" --output table
+      exit
+      ;;
     start)
       echo 'Retreiving list of stopped EC2 instances for '$user'...'
       echo 'Which EC2 instance do you wish to start?'
@@ -69,3 +74,4 @@ else
     echo $newstate instance $inst
     aws ec2 $ec2cmd --instance-ids $inst --output table
 fi
+
