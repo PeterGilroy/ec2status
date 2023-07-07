@@ -16,7 +16,7 @@ shift $((OPTIND-1))
 
 if [ x"$user" == x ]
 then
-    user=$(grep ^shared_handle .automaton.conf  | awk '{print $3}')
+    user=$(grep ^shared_handle ~/.automaton.conf  | awk '{print $3}')
 fi
 
 case $1 in
