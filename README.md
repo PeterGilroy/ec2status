@@ -5,7 +5,8 @@ The command will retrieve the user name form the ~/.automaton.conf file. This ca
 Usage: ec2.sh [-u username] start/stop
 
 Example output:
-```$ ./ec2.sh stop
+```
+$ ./ec2.sh stop
 Retreiving list of running EC2 instances for peter.gilroy...
 Which EC2 instance do you wish to stop?
 [1] us-west-2c  i-0abf0ea057f3b4504     peter.gilroy_test
@@ -36,7 +37,8 @@ Stopping instance i-xxxxxxxxxxxxxxxxx
 
 With -u parameter:
 
-```$ ./ec2.sh -u support_team stop
+```
+$ ./ec2.sh -u support_team stop
 Retreiving list of running EC2 instances for support_team...
 Which EC2 instance do you wish to stop?
 [1] us-west-2a  i-xxxxxxxxxxxxxxxxx     support_team_dse68dc1
