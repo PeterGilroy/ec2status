@@ -1,6 +1,6 @@
 # ec2status
 The ec2.sh script is used to start or stop EC2 instances from a command line.
-The command will retrieve the user name form the ~/.automaton.conf file. This can be overridden using the -u parameter.
+The command will retrieve the user name from the ~/.automaton.conf file. This can be overridden using the -u parameter.
 
 Usage: ec2.sh [-u username] start/stop
 
