@@ -7,7 +7,7 @@ Usage: ec2.sh [-u username] status/start/stop
 Example output:
 ```
 $ ./ec2.sh stop
-Retreiving list of running EC2 instances for peter.gilroy...
+Retrieving list of running EC2 instances for peter.gilroy...
 Which EC2 instance do you wish to stop?
 [1] us-west-2c  i-0abf0ea057f3b4504     peter.gilroy_test
 Enter Index ID for instance to stop (1 to 1): 1
@@ -39,7 +39,7 @@ With -u parameter:
 
 ```
 $ ./ec2.sh -u support_team stop
-Retreiving list of running EC2 instances for support_team...
+Retrieving list of running EC2 instances for support_team...
 Which EC2 instance do you wish to stop?
 [1] us-west-2a  i-xxxxxxxxxxxxxxxxx     support_team_dse68dc1
 [2] us-west-2a  i-xxxxxxxxxxxxxxxxx     support_team_dse68dc1
