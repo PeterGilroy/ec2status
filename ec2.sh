@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 [-u username] status/start/stop" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-u username] status/start/stop" 2>&1; exit 1; }
 
 while getopts "u:h:" o; do
     case "${o}" in
