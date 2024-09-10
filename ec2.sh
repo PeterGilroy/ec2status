@@ -21,19 +21,19 @@ fi
 
 case $1 in
     status)
-      echo 'Retreiving list of EC2 instances for '$user'...'
+      echo 'Retrieving list of EC2 instances for '$user'...'
       aws ec2 describe-instances --filters Name=tag:user,Values="$user" --query "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,Instance:State.Name}" --output table
       exit
       ;;
     start)
-      echo 'Retreiving list of stopped EC2 instances for '$user'...'
+      echo 'Retrieving list of stopped EC2 instances for '$user'...'
       echo 'Which EC2 instance do you wish to start?'
       state='stopped'
       ec2cmd='start-instances'
       newstate='Starting'
       ;;
     stop)
-      echo 'Retreiving list of running EC2 instances for '$user'...'
+      echo 'Retrieving list of running EC2 instances for '$user'...'
       echo 'Which EC2 instance do you wish to stop?'
       state='running'
       ec2cmd='stop-instances'
