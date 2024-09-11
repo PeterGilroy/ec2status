@@ -37,6 +37,8 @@ then
            esac
         done
     fi
+else 
+    prof=$AWS_PROFILE
 fi
 
 # Get the user's name from the .automaton.conf file
