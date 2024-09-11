@@ -49,7 +49,7 @@ fi
 case $1 in
     login)
       echo 'Logging in to aws...'
-      aws sso login --profile $profs;aws sts get-caller-identity --profile $profs
+      aws sso login --profile $prof;aws sts get-caller-identity --profile $prof
       exit
       ;;
     status)
