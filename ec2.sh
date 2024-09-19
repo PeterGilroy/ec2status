@@ -68,7 +68,7 @@ all_func () {
 }
 
 single_func () {
-    printf 'Enter Index ID for instance to %s (1 to %s): ' "$1" "$n"
+    printf 'Enter Index ID for instance to %s (1 to %s): ' "$cmdline" "$n"
     read -r num
     num=$(printf '%s\n' "$num" | tr -dc '[:digit:]')
 
@@ -109,7 +109,7 @@ cluster_func () {
         exit
     fi
 
-    printf 'Enter Index ID for instance to %s (1 to %s): ' "$1" "$n"
+    printf 'Enter Index ID for instance to %s (1 to %s): ' "$cmdline" "$n"
     read -r num
     num=$(printf '%s\n' "$num" | tr -dc '[:digit:]')
 
@@ -162,7 +162,7 @@ then
     user=$(grep ^shared_handle ~/.automaton.conf  | awk '{print $3}')
 fi
 
-
+cmdline=$1
 # check for the command run and set parameters or perform actions
 case $1 in
     login)
@@ -213,6 +213,7 @@ case $1 in
       state='stopped'
       ec2cmd='start-instances'
       newstate='Starting'
+      cmdline='start'
       cluster_func
       ;;
     clstop)
@@ -221,6 +222,7 @@ case $1 in
       state='running'
       ec2cmd='stop-instances'
       newstate='Stopping'
+      cmdline='stop'
       cluster_func
       ;;
     *)
