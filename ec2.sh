@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 [-u username] login/status/start/stop/startall/stopall/clstart/clstop" 2>&1; exit 1; }
+usage() { echo "Usage: $0 [-u username] status/start/stop/startall/stopall/clstart/clstop" 2>&1; exit 1; }
 
 while getopts "u:h:" o; do
     case "${o}" in
@@ -14,11 +14,18 @@ while getopts "u:h:" o; do
 done
 shift $((OPTIND-1))
 
-
 login_func () {
-      echo 'Logging in to aws...'
-      aws sso login --profile $prof;aws sts get-caller-identity --profile $prof
-      exit
+      # If not logged in the following command will return errcode 253 or 255 and if logged in will complete with errcode 0
+      aws sts get-caller-identity --profile $prof > /dev/null
+      loggedin=$?
+      if [ $loggedin -eq 0 ]
+      then
+         echo 'Already logged in to AWS.'
+      else
+         echo 'Logging in to AWS...'
+         # First command will initiate the login and then second will set the tokens for the rest of the commands to works
+         aws sso login --profile $prof;aws sts get-caller-identity --profile $prof > /dev/null
+      fi
 }
 
 status_func () {
@@ -134,12 +141,12 @@ cluster_func () {
 # and prompt with a list of profiles if there is more than one.
 if [ x"$AWS_PROFILE" == x ]
 then
-    echo 'AWS_PROFILE environment variable not set.';
+    # echo 'AWS_PROFILE environment variable not set.';
     profs=$(aws configure list-profiles | grep -v default);
     if [[ $(echo $profs | wc -w) == 1 ]];
     then
         prof=$profs
-        echo 'Setting AWS_PROFILE environment variable to '$prof'.';export AWS_PROFILE=$prof;
+        echo 'Using AWS profile '$prof'.';export AWS_PROFILE=$prof;
     else
         PS3='Which AWS profile do you wish to use?: '
         select opt in $profs Quit
@@ -156,6 +163,9 @@ else
     prof=$AWS_PROFILE
 fi
 
+#Check if logged in and if not login
+login_func
+
 # Get the user's name from the .automaton.conf file
 if [ x"$user" == x ]
 then
@@ -165,9 +175,6 @@ fi
 cmdline=$1
 # check for the command run and set parameters or perform actions
 case $1 in
-    login)
-        login_func
-      ;;
     status)
         status_func
       ;;
